@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+             http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+    <persistence-unit name="aa_persistence_unit" transaction-type="JTA">
+        <jta-data-source>AADataSource</jta-data-source>
+
+        <class>polytech.unice.fr.isa.aa.business.User</class>
+        <class>polytech.unice.fr.isa.aa.business.Transaction</class>
+        <class>polytech.unice.fr.isa.aa.business.Card</class>
+        <class>polytech.unice.fr.isa.aa.business.Pass</class>
+        <class>polytech.unice.fr.isa.aa.business.AbstractPass</class>
+        <class>polytech.unice.fr.isa.aa.business.FideliCimePass</class>
+        <class>polytech.unice.fr.isa.aa.business.BuyableObject</class>
+        <class>polytech.unice.fr.isa.aa.business.Gate</class>
+        <class>polytech.unice.fr.isa.aa.business.GateStat</class>
+        <class>polytech.unice.fr.isa.aa.business.AbstractStat</class>
+        <class>polytech.unice.fr.isa.aa.business.PurchaseStat</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>

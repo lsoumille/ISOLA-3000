@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>.:: ISOLA 3000 - aa ::.</title>
+</h:head>
+
+<h:body>
+    <h1>ISOLA 3000 / List of gates </h1>
+    <img style="float: right" src="isola_aa.png" alt="aa isola 3000"/>
+
+    <ul>
+        <ui:repeat var="gate" value="#{listGatesBean.listGates}">
+            <li><a href="statpergate.xhtml?gateId=#{gate.id}"><h:outputText value="#{gate.name}" />, <h:outputText value="#{gate.station}"/>, <h:outputText value="#{gate.zone}"/></a></li>
+        </ui:repeat>
+    </ul>
+
+    <a href="index.xhtml">Back</a>
+
+</h:body>
+
+</html>

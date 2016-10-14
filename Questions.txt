@@ -1,0 +1,35 @@
+- Sécurité paiement
+- Gestion des prix
+
+#TO DO
+Transaction subscribe fidelicime
+
+MEMO :
+http://localhost:8080/j2e-1.0-SNAPSHOT/webservices/IdConverterWS?wsdl
+
+
+   SmtpClient client = new SmtpClient();
+   client.UseDefaultCredentials = false;
+   client.Credentials = new NetworkCredential("nextbuscasparf@gmail.com", "polytechnicesophia");
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress("nextbuscasparf@gmail.com");
+            mail.To.Add("lucassoumille@yahoo.fr");
+            mail.Subject = "subject thing";
+            mail.Body = "dubbly doo";
+            ServicePointManager.ServerCertificateValidationCallback =
+                delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+                    { return true; };
+                client.Send(mail);
+
+
+Notes démo :
+- faire client qui lit les commandes en ligne
+- dissocier card et user + user / carte bancaire user enfant
+- modeliser que des forfaits réalisables
+- fidelicime / forfait multi journée
+- Démontrer le fonctionnel (portique inexistant, etc )
+- faire les stats
+- badger deux fois d'affiler (timeout)

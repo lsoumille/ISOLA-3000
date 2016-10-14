@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://webservice.aa.isa.fr.unice.polytech/" name="PurchaseWebService" targetNamespace="http://webservice.aa.isa.fr.unice.polytech/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservice.aa.isa.fr.unice.polytech/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservice.aa.isa.fr.unice.polytech/">
+  <xs:element name="addCardForUser" type="tns:addCardForUser"/>
+  <xs:element name="addCardForUserResponse" type="tns:addCardForUserResponse"/>
+  <xs:element name="addPassForCard" type="tns:addPassForCard"/>
+  <xs:element name="addPassForCardResponse" type="tns:addPassForCardResponse"/>
+  <xs:element name="addPassForCardWithCredential" type="tns:addPassForCardWithCredential"/>
+  <xs:element name="addPassForCardWithCredentialResponse" type="tns:addPassForCardWithCredentialResponse"/>
+  <xs:element name="getCard" type="tns:getCard"/>
+  <xs:element name="getCardResponse" type="tns:getCardResponse"/>
+  <xs:element name="listAllPass" type="tns:listAllPass"/>
+  <xs:element name="listAllPassResponse" type="tns:listAllPassResponse"/>
+  <xs:element name="subscribeFidelicime" type="tns:subscribeFidelicime"/>
+  <xs:element name="subscribeFidelicimeResponse" type="tns:subscribeFidelicimeResponse"/>
+  <xs:complexType name="getCard">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="num_creditcard" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCardResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id_card" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="listAllPass">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="listAllPassResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="pass" type="tns:abstractPass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="abstractPass">
+    <xs:complexContent>
+      <xs:extension base="tns:buyableObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="age" type="tns:agePass"/>
+          <xs:element minOccurs="0" name="type" type="tns:typePass"/>
+          <xs:element minOccurs="0" name="zone" type="tns:zonePass"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="buyableObject">
+    <xs:sequence>
+      <xs:element name="price" type="xs:float"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addPassForCardWithCredential">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id_card" type="xs:string"/>
+      <xs:element minOccurs="0" name="age" type="xs:string"/>
+      <xs:element minOccurs="0" name="type" type="xs:string"/>
+      <xs:element minOccurs="0" name="zone" type="xs:string"/>
+      <xs:element minOccurs="0" name="num_creditcard" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addPassForCardWithCredentialResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="addCardForUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="user_name" type="xs:string"/>
+      <xs:element minOccurs="0" name="user_firstname" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addCardForUserResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id_card" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="subscribeFidelicime">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id_card" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="subscribeFidelicimeResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="addPassForCard">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id_card" type="xs:string"/>
+      <xs:element minOccurs="0" name="age" type="xs:string"/>
+      <xs:element minOccurs="0" name="type" type="xs:string"/>
+      <xs:element minOccurs="0" name="zone" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addPassForCardResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:simpleType name="agePass">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CHILDREN_UNDER_FIVE"/>
+      <xs:enumeration value="CHILDREN_OVER_FIVE"/>
+      <xs:enumeration value="TEENAGER"/>
+      <xs:enumeration value="STUDENT"/>
+      <xs:enumeration value="ADULT"/>
+      <xs:enumeration value="GOLDEN_AGE"/>
+      <xs:enumeration value="ELDER"/>
+      <xs:enumeration value="FAMILY_PACK"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="typePass">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="HALF_DAY"/>
+      <xs:enumeration value="ONE_DAY"/>
+      <xs:enumeration value="TWO_DAYS"/>
+      <xs:enumeration value="THREE_DAYS"/>
+      <xs:enumeration value="FOUR_DAYS"/>
+      <xs:enumeration value="FIVE_DAYS"/>
+      <xs:enumeration value="SIX_DAYS"/>
+      <xs:enumeration value="SEVEN_DAYS"/>
+      <xs:enumeration value="EIGHT_DAYS"/>
+      <xs:enumeration value="MORE_THAN_NINE_DAYS"/>
+      <xs:enumeration value="FIDELICIMES"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="zonePass">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BEGINNER"/>
+      <xs:enumeration value="ISOLA2000"/>
+      <xs:enumeration value="AURON"/>
+      <xs:enumeration value="SNOWPARK"/>
+      <xs:enumeration value="ALL"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="UnknownUserException" type="tns:UnknownUserException"/>
+  <xs:complexType name="UnknownUserException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaymentException" type="tns:PaymentException"/>
+  <xs:complexType name="PaymentException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AlreadyExistingCard" type="tns:AlreadyExistingCard"/>
+  <xs:complexType name="AlreadyExistingCard">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PriceNotFoundException" type="tns:PriceNotFoundException"/>
+  <xs:complexType name="PriceNotFoundException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnknownCardException" type="tns:UnknownCardException"/>
+  <xs:complexType name="UnknownCardException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnknownPass" type="tns:UnknownPass"/>
+  <xs:complexType name="UnknownPass">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getCardResponse">
+    <wsdl:part element="ns1:getCardResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnknownUserException">
+    <wsdl:part element="ns1:UnknownUserException" name="UnknownUserException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnknownPass">
+    <wsdl:part element="ns1:UnknownPass" name="UnknownPass">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listAllPass">
+    <wsdl:part element="ns1:listAllPass" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addPassForCardResponse">
+    <wsdl:part element="ns1:addPassForCardResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AlreadyExistingCard">
+    <wsdl:part element="ns1:AlreadyExistingCard" name="AlreadyExistingCard">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnknownCardException">
+    <wsdl:part element="ns1:UnknownCardException" name="UnknownCardException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addPassForCardWithCredentialResponse">
+    <wsdl:part element="ns1:addPassForCardWithCredentialResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addCardForUser">
+    <wsdl:part element="ns1:addCardForUser" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addCardForUserResponse">
+    <wsdl:part element="ns1:addCardForUserResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="subscribeFidelicime">
+    <wsdl:part element="ns1:subscribeFidelicime" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="subscribeFidelicimeResponse">
+    <wsdl:part element="ns1:subscribeFidelicimeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCard">
+    <wsdl:part element="ns1:getCard" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addPassForCardWithCredential">
+    <wsdl:part element="ns1:addPassForCardWithCredential" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listAllPassResponse">
+    <wsdl:part element="ns1:listAllPassResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PaymentException">
+    <wsdl:part element="ns1:PaymentException" name="PaymentException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PriceNotFoundException">
+    <wsdl:part element="ns1:PriceNotFoundException" name="PriceNotFoundException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addPassForCard">
+    <wsdl:part element="ns1:addPassForCard" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PurchaseWebService">
+    <wsdl:operation name="getCard">
+      <wsdl:input message="ns1:getCard" name="getCard">
+    </wsdl:input>
+      <wsdl:output message="ns1:getCardResponse" name="getCardResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:PaymentException" name="PaymentException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnknownUserException" name="UnknownUserException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:AlreadyExistingCard" name="AlreadyExistingCard">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="listAllPass">
+      <wsdl:input message="ns1:listAllPass" name="listAllPass">
+    </wsdl:input>
+      <wsdl:output message="ns1:listAllPassResponse" name="listAllPassResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addPassForCardWithCredential">
+      <wsdl:input message="ns1:addPassForCardWithCredential" name="addPassForCardWithCredential">
+    </wsdl:input>
+      <wsdl:output message="ns1:addPassForCardWithCredentialResponse" name="addPassForCardWithCredentialResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnknownCardException" name="UnknownCardException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:PaymentException" name="PaymentException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:PriceNotFoundException" name="PriceNotFoundException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnknownPass" name="UnknownPass">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="addCardForUser">
+      <wsdl:input message="ns1:addCardForUser" name="addCardForUser">
+    </wsdl:input>
+      <wsdl:output message="ns1:addCardForUserResponse" name="addCardForUserResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:PaymentException" name="PaymentException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnknownUserException" name="UnknownUserException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:AlreadyExistingCard" name="AlreadyExistingCard">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="subscribeFidelicime">
+      <wsdl:input message="ns1:subscribeFidelicime" name="subscribeFidelicime">
+    </wsdl:input>
+      <wsdl:output message="ns1:subscribeFidelicimeResponse" name="subscribeFidelicimeResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnknownCardException" name="UnknownCardException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:PaymentException" name="PaymentException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:PriceNotFoundException" name="PriceNotFoundException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnknownPass" name="UnknownPass">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="addPassForCard">
+      <wsdl:input message="ns1:addPassForCard" name="addPassForCard">
+    </wsdl:input>
+      <wsdl:output message="ns1:addPassForCardResponse" name="addPassForCardResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnknownCardException" name="UnknownCardException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:PaymentException" name="PaymentException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:PriceNotFoundException" name="PriceNotFoundException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnknownPass" name="UnknownPass">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

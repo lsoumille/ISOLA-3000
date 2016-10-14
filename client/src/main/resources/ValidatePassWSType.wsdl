@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://webservice.aa.isa.fr.unice.polytech/" name="ValidatePassWebService" targetNamespace="http://webservice.aa.isa.fr.unice.polytech/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservice.aa.isa.fr.unice.polytech/" elementFormDefault="unqualified" targetNamespace="http://webservice.aa.isa.fr.unice.polytech/" version="1.0">
+
+            <xs:element name="validatePass" type="tns:validatePass"/>
+
+            <xs:element name="validatePassResponse" type="tns:validatePassResponse"/>
+
+            <xs:complexType name="validatePass">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="card_id" type="xs:string"/>
+                    <xs:element name="gate_id" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="validatePassResponse">
+                <xs:sequence>
+                    <xs:element name="boolean-result" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="validatePassResponse">
+        <wsdl:part element="ns1:validatePassResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="validatePass">
+        <wsdl:part element="ns1:validatePass" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="ValidatePassWebService">
+        <wsdl:operation name="validatePass">
+            <wsdl:input message="ns1:validatePass" name="validatePass">
+            </wsdl:input>
+            <wsdl:output message="ns1:validatePassResponse" name="validatePassResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

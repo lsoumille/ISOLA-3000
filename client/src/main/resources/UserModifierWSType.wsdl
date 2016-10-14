@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://webservice.aa.isa.fr.unice.polytech/" name="UserModifierWebService" targetNamespace="http://webservice.aa.isa.fr.unice.polytech/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservice.aa.isa.fr.unice.polytech/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservice.aa.isa.fr.unice.polytech/">
+            <xs:element name="getHistory" type="tns:getHistory"/>
+            <xs:element name="getHistoryResponse" type="tns:getHistoryResponse"/>
+            <xs:element name="register" type="tns:register"/>
+            <xs:element name="registerResponse" type="tns:registerResponse"/>
+            <xs:complexType name="getHistory">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="user_name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="user_firstname" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getHistoryResponse">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="alltransactions" type="tns:transaction"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="transaction">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="id" type="xs:string"/>
+                    <xs:element minOccurs="0" name="objects" type="tns:buyableObject"/>
+                    <xs:element minOccurs="0" name="user" type="tns:user"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="buyableObject">
+                <xs:sequence>
+                    <xs:element name="price" type="xs:double"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="user">
+                <xs:sequence>
+                    <xs:element name="age" type="xs:int"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="allTransaction" nillable="true" type="tns:transaction"/>
+                    <xs:element minOccurs="0" name="card" type="tns:card"/>
+                    <xs:element minOccurs="0" name="creditCard" type="xs:string"/>
+                    <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+                    <xs:element name="id" type="xs:int"/>
+                    <xs:element minOccurs="0" name="mail" type="xs:string"/>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="card">
+                <xs:complexContent>
+                    <xs:extension base="tns:buyableObject">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="id" type="xs:string"/>
+                            <xs:element minOccurs="0" name="pass" type="tns:pass"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="pass">
+                <xs:complexContent>
+                    <xs:extension base="tns:abstractPass">
+                        <xs:sequence>
+                            <xs:element name="activated" type="xs:boolean"/>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="gateList" nillable="true" type="tns:gate"/>
+                            <xs:element name="nbDays" type="xs:double"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="abstractPass">
+                <xs:complexContent>
+                    <xs:extension base="tns:buyableObject">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="age" type="tns:agePass"/>
+                            <xs:element minOccurs="0" name="type" type="tns:typePass"/>
+                            <xs:element minOccurs="0" name="zone" type="tns:zonePass"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="gate">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int"/>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="station" type="xs:string"/>
+                    <xs:element minOccurs="0" name="zone" type="tns:zonePass"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="register">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="user_name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="user_firstname" type="xs:string"/>
+                    <xs:element name="age" type="xs:int"/>
+                    <xs:element minOccurs="0" name="credit_card_number" type="xs:string"/>
+                    <xs:element minOccurs="0" name="mail" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="registerResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:simpleType name="zonePass">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="BEGINNER"/>
+                    <xs:enumeration value="ISOLA2000"/>
+                    <xs:enumeration value="AURON"/>
+                    <xs:enumeration value="SNOWPARK"/>
+                    <xs:enumeration value="ALL"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType name="agePass">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="CHILDREN_UNDER_FIVE"/>
+                    <xs:enumeration value="CHILDREN_OVER_FIVE"/>
+                    <xs:enumeration value="TEENAGER"/>
+                    <xs:enumeration value="STUDENT"/>
+                    <xs:enumeration value="ADULT"/>
+                    <xs:enumeration value="GOLDEN_AGE"/>
+                    <xs:enumeration value="ELDER"/>
+                    <xs:enumeration value="FAMILY_PACK"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType name="typePass">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="HALF_DAY"/>
+                    <xs:enumeration value="ONE_DAY"/>
+                    <xs:enumeration value="TWO_DAYS"/>
+                    <xs:enumeration value="THREE_DAYS"/>
+                    <xs:enumeration value="FOUR_DAYS"/>
+                    <xs:enumeration value="FIVE_DAYS"/>
+                    <xs:enumeration value="SIX_DAYS"/>
+                    <xs:enumeration value="SEVEN_DAYS"/>
+                    <xs:enumeration value="EIGHT_DAYS"/>
+                    <xs:enumeration value="MORE_THAN_NINE_DAYS"/>
+                    <xs:enumeration value="FIDELICIMES"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="AlreadyExistingUserException" type="tns:AlreadyExistingUserException"/>
+            <xs:complexType name="AlreadyExistingUserException">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="AlreadyExistingUserException">
+        <wsdl:part element="ns1:AlreadyExistingUserException" name="AlreadyExistingUserException">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="register">
+        <wsdl:part element="ns1:register" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getHistoryResponse">
+        <wsdl:part element="ns1:getHistoryResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getHistory">
+        <wsdl:part element="ns1:getHistory" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="registerResponse">
+        <wsdl:part element="ns1:registerResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="UserModifierWebService">
+        <wsdl:operation name="getHistory">
+            <wsdl:input message="ns1:getHistory" name="getHistory">
+            </wsdl:input>
+            <wsdl:output message="ns1:getHistoryResponse" name="getHistoryResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="register">
+            <wsdl:input message="ns1:register" name="register">
+            </wsdl:input>
+            <wsdl:output message="ns1:registerResponse" name="registerResponse">
+            </wsdl:output>
+            <wsdl:fault message="ns1:AlreadyExistingUserException" name="AlreadyExistingUserException">
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
